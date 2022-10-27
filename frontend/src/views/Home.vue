@@ -32,7 +32,7 @@ export default {
 
       const data = await res.json()
 
-      this.tasks = [...this.tasks, data]
+      this.tasks = [...this.tasks, data.task]
     },
     async deleteTask(id) {
       if (confirm('Are you sure?')) {
@@ -46,7 +46,9 @@ export default {
       }
     },
     async toggleReminder(id) {
+
       const taskToToggle = await this.fetchTask(id)
+
       const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
 
       const res = await fetch(`api/tasks/${id}`, {
@@ -60,7 +62,7 @@ export default {
       const data = await res.json()
 
       this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, reminder: data.reminder } : task
+        task.id === id ? { ...task, reminder: data.task.reminder } : task
       )
     },
     async fetchTasks() {
@@ -68,14 +70,14 @@ export default {
 
       const data = await res.json()
 
-      return data
+      return data.tasks
     },
     async fetchTask(id) {
       const res = await fetch(`api/tasks/${id}`)
 
       const data = await res.json()
 
-      return data
+      return data.task
     },
   },
   async created() {

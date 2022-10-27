@@ -58,9 +58,14 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        //
+        $task=Task::findOrFail($id);
+
+        return response()->json([
+            'status'=> true,
+            'task'=>$task
+        ]); 
     }
 
     /**
@@ -88,7 +93,7 @@ class TaskController extends Controller
         return response()->json([
             'status' => true,
             'message' => "task Updated successfully!",
-            'post' => $task
+            'task' => $task
         ], 200);
     }
 
