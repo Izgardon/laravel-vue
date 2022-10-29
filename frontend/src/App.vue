@@ -1,9 +1,24 @@
 <template>
-  <div class="container">
-    <Header @toggle-add-task="toggleAddTask" title="Task Tracker" :showAddTask="showAddTask" />
-    <router-view :showAddTask="showAddTask"></router-view>
-    <Footer />
-  </div>
+  <v-layout>
+    <v-app-bar>
+
+      <v-list class="mx-auto">
+        <router-link class="pr-5" to="/">Home</router-link>
+        <router-link class="pr-5" to="/about">About</router-link>
+        <router-link class="pr-5" to="/teams">Teams</router-link>
+        <router-link class="pr-5" to="/alltasks">All Tasks</router-link>
+      </v-list>
+
+    </v-app-bar>
+    <v-main>
+      <v-card height="fit-content" class="mx-auto mt-10" width="700px">
+        <Header @toggle-add-task="toggleAddTask" :title="teamsPage ? 'Teams Page' : 'Task Tracker'"
+          :showAddTask="showAddTask" />
+        <router-view :showAddTask="showAddTask"></router-view>
+        <Footer />
+      </v-card>
+    </v-main>
+  </v-layout>
 </template>
 
 <script>
@@ -26,6 +41,15 @@ export default {
       this.showAddTask = !this.showAddTask
     },
   },
+  computed: {
+    teamsPage() {
+      if (this.$route.path === '/teams') {
+        return true
+      } else {
+        return false
+      }
+    },
+  },
 }
 </script>
 
@@ -43,7 +67,7 @@ body {
 }
 
 .container {
-  max-width: 500px;
+  width: 700px;
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;

@@ -1,12 +1,13 @@
 <template>
   <AddTask v-show="showAddTask" @add-task="addTask" />
   <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks" />
-  <v-select :items="['Foo', 'Bar']" label="Items"></v-select>
+
 </template>
 
 <script>
 import Tasks from '../components/Tasks'
 import AddTask from '../components/AddTask'
+import { mapGetters } from 'vuex'
 export default {
   name: 'HomePage',
   props: {
@@ -21,6 +22,8 @@ export default {
       tasks: [],
     }
   },
+  computed: mapGetters(['allTasks']),
+
   methods: {
     async addTask(task) {
       const res = await fetch('api/tasks', {
