@@ -7,12 +7,14 @@
         <router-link class="pr-5" to="/about">About</router-link>
         <router-link class="pr-5" to="/teams">Teams</router-link>
         <router-link class="pr-5" to="/alltasks">All Tasks</router-link>
+        <router-link class="pr-5" to="/login">Login</router-link>
       </v-list>
 
     </v-app-bar>
     <v-main>
       <v-card height="fit-content" class="mx-auto mt-10" width="700px">
-        <Header @toggle-add-task="toggleAddTask" :title="teamsPage ? 'Teams Page' : 'Task Tracker'"
+        <Header @toggle-add-task="toggleAddTask"
+          :title="teamsPage === 'teams' ? 'Teams Page' : teamsPage === 'login' ? 'Login Page' : 'Task Tracker'"
           :showAddTask="showAddTask" />
         <router-view :showAddTask="showAddTask"></router-view>
         <Footer />
@@ -44,7 +46,10 @@ export default {
   computed: {
     teamsPage() {
       if (this.$route.path === '/teams') {
-        return true
+        return 'teams'
+      }
+      else if (this.$route.path === '/login') {
+        return 'login'
       } else {
         return false
       }

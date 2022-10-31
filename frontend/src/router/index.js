@@ -3,6 +3,7 @@ import Home from "../views/Home";
 import About from "../views/About";
 import Teams from "../views/Teams";
 import AllTasks from "../views/AllTasks";
+import Login from "../views/Login";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/alltasks",
     name: "AllTasks",
     component: AllTasks,
+  },
+  {
+    path: "/login",
+    name: "LoginPage",
+    component: Login,
   },
 ];
 
